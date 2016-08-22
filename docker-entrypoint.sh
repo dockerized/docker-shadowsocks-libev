@@ -8,6 +8,7 @@ exec ss-server -s $SERVER_ADDR \
                -t $TIMEOUT \
                -d $DNS_ADDR \
                --fast-open \
-               -u
+               -u \
+               -v
 
 
