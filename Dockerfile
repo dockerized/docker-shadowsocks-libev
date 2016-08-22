@@ -19,8 +19,8 @@ RUN set -ex \
     && cd .. \
     && rm -rf $SS_DIR \
     && apk del --purge $SS_DEP \
-    && rm -rf /var/cache/apk/*
-    && rm -rf /tmp/*
+    && rm -rf /var/cache/apk/* \
+    && rm -rf /tmp/* \
     && /var/tmp/*
 
 ENV SERVER_ADDR 0.0.0.0
