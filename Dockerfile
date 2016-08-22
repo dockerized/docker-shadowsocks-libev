@@ -12,7 +12,7 @@ ENV SS_DEP autoconf build-base curl libtool linux-headers openssl-dev asciidoc x
 
 RUN set -ex \
     && apk --no-cache --update add $SS_DEP \
-    && curl -sSL $SS_URL | tar xf \
+    && curl -sSL $SS_URL | tar xz \
     && cd $SS_DIR \
     && ./configure \
     && make install \
