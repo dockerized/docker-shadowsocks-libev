@@ -32,11 +32,13 @@ ENV DNS_ADDR 8.8.8.8
 EXPOSE $SERVER_PORT/tcp
 EXPOSE $SERVER_PORT/udp
 
-CMD ss-server -s $SERVER_ADDR \
-              -p $SERVER_PORT \
-              -k $PASSWORD \
-              -m $METHOD \
-              -t $TIMEOUT \
-              -d $DNS_ADDR \
-              --fast-open \
-              -u
+ENTRYPOINT ["ss-server", "-s", "$SERVER_ADDR", "-p", "$SERVER_PORT", "-k", "$PASSWORD", "-m", "$METHOD", "-t", "$TIMEOUT", "-d", "$DNS_ADDR", "--fast-open", "-u"]
+
+# ss-server -s $SERVER_ADDR \
+#               -p $SERVER_PORT \
+#               -k $PASSWORD \
+#               -m $METHOD \
+#               -t $TIMEOUT \
+#               -d $DNS_ADDR \
+#               --fast-open \
+#               -u
