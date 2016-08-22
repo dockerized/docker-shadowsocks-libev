@@ -7,5 +7,5 @@ services:
       - "10010:8388/udp"
     environment:
       - METHOD=chacha20
-      - PASSWORD=9MLSpPmNt
+      - PASSWORD=1234567890
     restart: always

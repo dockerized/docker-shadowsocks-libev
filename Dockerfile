@@ -22,7 +22,6 @@ RUN set -ex \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/*
 
-ENV SERVER_ADDR 0.0.0.0
 ENV SERVER_PORT 8388
 ENV PASSWORD 1234567890
 ENV METHOD chacha20
@@ -32,7 +31,7 @@ ENV DNS_ADDR 8.8.8.8
 EXPOSE $SERVER_PORT/tcp
 EXPOSE $SERVER_PORT/udp
 
-CMD ss-server -s $SERVER_ADDR \
+CMD ss-server -s 0.0.0.0 \
               -p $SERVER_PORT \
               -k $PASSWORD \
               -m $METHOD \
