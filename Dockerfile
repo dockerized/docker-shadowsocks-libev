@@ -5,6 +5,7 @@
 FROM alpine:edge
 MAINTAINER Tony.Shao <xiocode@gmail.com>
 
+ENV SS_VERSION v2.5.0
 ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev.git
 ENV SS_DIR shadowsocks-libev
 ENV SS_DEP git autoconf build-base curl libtool linux-headers openssl-dev asciidoc xmlto
@@ -13,6 +14,7 @@ RUN set -ex \
     && apk --no-cache --update add $SS_DEP \
     && git clone $SS_URL \
     && cd $SS_DIR \
+    && git checkout tags/$SS_VERSION \
     && ./configure \
     && make install \
     && cd .. \
