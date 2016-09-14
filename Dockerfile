@@ -8,7 +8,7 @@ MAINTAINER Tony.Shao <xiocode@gmail.com>
 ENV SS_VERSION v2.5.2
 ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev.git
 ENV SS_DIR shadowsocks-libev
-ENV SS_DEP git autoconf build-base curl libtool linux-headers openssl-dev asciidoc xmlto
+ENV SS_DEP git autoconf build-base curl libtool linux-headers openssl-dev asciidoc xmlto pcre-dev
 
 RUN set -ex \
     && apk --no-cache --update add $SS_DEP \
