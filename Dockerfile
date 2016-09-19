@@ -23,7 +23,7 @@ RUN set -ex \
 RUN set -ex \
     && git clone $NETSPEEDER_URL $NETSPEEDER_DIR \
     && cd $NETSPEEDER_DIR \
-    && sh build \
+    && sh build.sh \
     && mv net_speeder /usr/local/bin/ \
     && cd .. \
     && rm -rf $NETSPEEDER_DIR \
