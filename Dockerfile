@@ -16,9 +16,11 @@ ENV NETSPEEDER_BUILD_DEP libnet-dev libpcap-dev
 ENV NETSPEEDER_URL https://github.com/snooda/net-speeder.git
 ENV NETSPEEDER_DIR net-speeder
 
+RUN set -ex \
+    && apk --no-cache --update add $SS_DEP $SS_BUILD_DEP $NETSPEEDER_DEP $NETSPEEDER_BUILD_DEP
+
 # install net-speeder
 RUN set -ex \
-    && apk --no-cache --update add $NETSPEEDER_DEP $NETSPEEDER_BUILD_DEP \
     && git clone $NETSPEEDER_URL $NETSPEEDER_DIR \
     && cd $NETSPEEDER_DIR \
     && sh build \
@@ -29,7 +31,6 @@ RUN set -ex \
 
 # install shadowsocks-libev
 RUN set -ex \
-    && apk --no-cache --update add $SS_DEP $SS_BUILD_DEP \
     && git clone $SS_URL \
     && cd $SS_DIR \
     && git checkout tags/$SS_VERSION \
