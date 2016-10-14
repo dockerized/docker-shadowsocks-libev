@@ -5,24 +5,38 @@
 FROM alpine:edge
 MAINTAINER Tony.Shao <xiocode@gmail.com>
 
-ENV SS_VERSION v2.5.5
-ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev.git
-ENV SS_DIR shadowsocks-libev
-ENV SS_DEP pcre
-ENV SS_BUILD_DEP git autoconf build-base curl libtool linux-headers openssl-dev asciidoc xmlto pcre-dev
+ARG SS_VER=2.5.5
+ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 
-RUN set -ex \
-    && apk --no-cache --update add $SS_DEP $SS_BUILD_DEP \
-    && git clone $SS_URL \
-    && cd $SS_DIR \
-    && git checkout tags/$SS_VERSION \
-    && ./configure \
-    && make install \
-    && cd .. \
-    && rm -rf $SS_DIR \
-    && apk del --purge $SS_BUILD_DEP \
-    && rm -rf /var/cache/apk/* \
-    && rm -rf /tmp/*
+RUN set -ex && \
+    apk add --no-cache --virtual .build-deps \
+                                asciidoc \
+                                autoconf \
+                                build-base \
+                                curl \
+                                libtool \
+                                linux-headers \
+                                openssl-dev \
+                                pcre-dev \
+                                tar \
+                                xmlto && \
+    cd /tmp && \
+    curl -sSL $SS_URL | tar xz --strip 1 && \
+    ./configure --prefix=/usr --disable-documentation && \
+    make install && \
+    cd .. && \
+
+    runDeps="$( \
+        scanelf --needed --nobanner /usr/bin/ss-* \
+            | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+            | xargs -r apk info --installed \
+            | sort -u \
+    )" && \
+    apk add --no-cache --virtual .run-deps $runDeps && \
+    apk del .build-deps && \
+    rm -rf /tmp/*
+
+USER nobody
 
 ENV SERVER_ADDR 0.0.0.0
 ENV SERVER_PORT 8388
