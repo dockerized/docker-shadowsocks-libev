@@ -5,7 +5,7 @@
 FROM alpine:edge
 MAINTAINER Tony.Shao <xiocode@gmail.com>
 
-ARG SS_VER=2.5.5
+ARG SS_VER=2.5.6
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 
 RUN set -ex && \
@@ -44,6 +44,7 @@ ENV PASSWORD 1234567890
 ENV METHOD chacha20
 ENV TIMEOUT 3600
 ENV DNS_ADDR 8.8.8.8
+ENV DNS_ADDR_2 8.8.4.4
 
 EXPOSE $SERVER_PORT/tcp
 EXPOSE $SERVER_PORT/udp
