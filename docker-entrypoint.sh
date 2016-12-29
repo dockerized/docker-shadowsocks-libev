@@ -7,6 +7,8 @@ exec ss-server -s $SERVER_ADDR \
                -m $METHOD \
                -t $TIMEOUT \
                --fast-open \
+               --obfs $OBFS \
+               --obfs-host $OBFS_HOST \
                -u
 
 
