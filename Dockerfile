@@ -5,21 +5,23 @@
 FROM alpine:edge
 MAINTAINER Tony.Shao <xiocode@gmail.com>
 
-ARG SS_VER=2.6.0
+ARG SS_VER=3.0.0
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 
 RUN set -ex && \
     apk add --no-cache --virtual .build-deps \
-                                asciidoc \
                                 autoconf \
                                 build-base \
                                 curl \
+                                libev-dev \
                                 libtool \
                                 linux-headers \
-                                openssl-dev \
+                                udns-dev \
+                                libsodium-dev \
+                                mbedtls-dev \
                                 pcre-dev \
                                 tar \
-                                xmlto && \
+                                udns-dev && \
     cd /tmp && \
     curl -sSL $SS_URL | tar xz --strip 1 && \
     ./configure --prefix=/usr --disable-documentation && \
