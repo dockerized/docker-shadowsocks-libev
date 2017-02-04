@@ -7,6 +7,7 @@ exec ss-server -s $SERVER_ADDR \
                -m $METHOD \
                -t $TIMEOUT \
                --fast-open \
-               -u
+               -u \
+               --plugin obfs-server --plugin-opts "${OBFS_OPTS}"
 
 
