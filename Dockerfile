@@ -13,7 +13,10 @@ ARG SS_OBFS_URL=https://github.com/shadowsocks/simple-obfs/archive/v$SS_OBFS_VER
 
 RUN set -ex && \
     apk add --no-cache --virtual .build-deps \
+                                git \
                                 autoconf \
+                                automake \
+                                make \
                                 build-base \
                                 curl \
                                 libev-dev \
@@ -25,8 +28,21 @@ RUN set -ex && \
                                 pcre-dev \
                                 tar \
                                 udns-dev && \
-    cd /tmp && \
-    curl -sSL $SS_URL | tar xz --strip 1 && \
+
+    cd /tmp/ && \
+    git clone https://github.com/shadowsocks/shadowsocks-libev.git && \
+    cd shadowsocks-libev && \
+    git checkout v$SS_VER && \
+    git submodule update --init --recursive && \
+    ./autogen.sh && \
+    ./configure --prefix=/usr --disable-documentation && \
+    make install && \
+    cd /tmp/ && \
+    git clone https://github.com/shadowsocks/simple-obfs.git shadowsocks-obfs && \
+    cd shadowsocks-obfs && \
+    git checkout v$SS_OBFS_VER && \
+    git submodule update --init --recursive && \
+    ./autogen.sh && \
     ./configure --prefix=/usr --disable-documentation && \
     make install && \
     cd .. && \
