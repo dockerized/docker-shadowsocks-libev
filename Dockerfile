@@ -5,7 +5,7 @@
 FROM alpine:edge
 MAINTAINER Tony.Shao <xiocode@gmail.com>
 
-ARG SS_VER=3.0.5
+ARG SS_VER=3.0.8
 ARG SS_OBFS_VER=0.0.3
 
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
@@ -26,8 +26,7 @@ RUN set -ex && \
                                 libsodium-dev \
                                 mbedtls-dev \
                                 pcre-dev \
-                                tar \
-                                udns-dev && \
+                                tar && \
 
     cd /tmp/ && \
     git clone https://github.com/shadowsocks/shadowsocks-libev.git && \
