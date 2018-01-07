@@ -27,7 +27,7 @@ RUN set -ex && \
                                 mbedtls-dev \
                                 pcre-dev \
                                 tar \
-                                c-ares-dev \&& \
+                                c-ares-dev && \
 
     cd /tmp/ && \
     git clone https://github.com/shadowsocks/shadowsocks-libev.git && \
