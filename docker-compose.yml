@@ -1,12 +1,11 @@
-version: '2'
+version: '3'
 services:
   shadowsocks:
     image: xiocode/shadowsocks-libev
     ports:
-      - "5432:8388/tcp"
-      - "5432:8388/udp"
+      - "2345:8388"
     environment:
-      - METHOD="chacha20-ietf-poly1305"
-      - PASSWORD="1234567890"
-      - OBFS_OPTS="obfs=tls;obfs-host=www.bing.com"
+      - METHOD=chacha20-ietf-poly1305
+      - PASSWORD=1234567890
+      - OBFS_OPTS=obfs=tls;obfs-host=www.bing.com
     restart: always

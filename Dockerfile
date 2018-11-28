@@ -54,12 +54,19 @@ ENV SERVER_PORT 8388
 ENV PASSWORD 1234567890
 ENV METHOD chacha20
 ENV TIMEOUT 3600
-ENV DNS_ADDRS 1.0.0.1,8.8.8.8
-ENV OBFS_OPTS obfs=tls;obfs-host=www.bing.com
+ENV DNS_ADDRS 1.1.1.1,1.0.0.1
+ENV OBFS_OPTS obfs=http
 
-EXPOSE $SERVER_PORT/tcp
-EXPOSE $SERVER_PORT/udp
-
-COPY ./docker-entrypoint.sh /
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD exec ss-server \
+                -s $SERVER_ADDR \
+                -d $DNS_ADDRS \               
+                -p $SERVER_PORT \
+                -k $PASSWORD \
+                -m $METHOD \
+                -t $TIMEOUT \
+                --fast-open \
+                -u \
+                --no-delay \
+                --reuse-port \
+                --plugin obfs-server \
+                --plugin-opts "${OBFS_OPTS}"
